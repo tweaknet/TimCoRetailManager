@@ -1,2 +1,3 @@
 # TimCoRetailManager
-a retali manager system
+a retail manager system
+only for test
