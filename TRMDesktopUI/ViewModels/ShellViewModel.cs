@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TRMDesktopUI.ViewsModels
+namespace TRMDesktopUI.ViewModels
 {
     public class ShellViewModel
     {
