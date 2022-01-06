@@ -5,7 +5,9 @@
     <TargetDatabaseName>TRMData</TargetDatabaseName>
     <DeployScriptFileName>TRMData.sql</DeployScriptFileName>
       <TargetConnectionString>Data Source=V510\SQLEXPRESS;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False</TargetConnectionString>
-<!--	  
+
+	  <!--	  
+	  <TargetConnectionString>Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-TRMDataManager-20220102081318.mdf;Initial Catalog=aspnet-TRMDataManager-20220102081318;Integrated Security=True</TargetConnectionString>
 	  <TargetConnectionString>Data Source=srv3\msSQL;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False</TargetConnectionString>
 -->
 	<ProfileVersionNumber>1</ProfileVersionNumber>
