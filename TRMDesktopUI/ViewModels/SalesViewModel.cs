@@ -39,16 +39,6 @@ namespace TRMDesktopUI.ViewModels
             }
         }
 
-        public bool CanAddToCart
-        {
-            get
-            {
-                bool output = false;
-
-                return output;
-            }
-
-        }
         public string SubTotal 
         { get 
             {
@@ -68,6 +58,16 @@ namespace TRMDesktopUI.ViewModels
                 return "0.00";
             }
         }
+        public bool CanAddToCart
+        {
+            get
+            {
+                bool output = false;
+
+                return output;
+            }
+
+        }
         public void AddToCart()
         {
 
@@ -86,7 +86,20 @@ namespace TRMDesktopUI.ViewModels
         {
 
         }
+        public bool CanCheckOut
+        {
+            get
+            {
+                bool output = false;
 
+                return output;
+            }
+
+        }
+        public void CheckOut()
+        {
+
+        }
 
     }
 }
