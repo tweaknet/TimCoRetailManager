@@ -16,7 +16,7 @@ namespace TRMDataManager.Controllers
         //{
         //    return View();
         //}
-
+        [HttpGet]
         public UserModel GetById()
         {
             string userId = RequestContext.Principal.Identity.GetUserId();
