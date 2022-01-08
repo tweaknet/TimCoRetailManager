@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--Header-->
-        <TextBlock Text="Salec Page" FontSize="48" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 0 0 20"/>
+        <TextBlock Text="Sales Page" FontSize="48" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 0 0 20"/>
         <!--column0-->
         <TextBlock Text="Items" Grid.Row="1" Grid.Column="0"/>
         <ListBox x:Name="Products" Grid.Row="2" Grid.Column="0"
