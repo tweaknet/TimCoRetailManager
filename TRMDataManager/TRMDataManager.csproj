@@ -225,6 +225,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201081942140_yyyy.cs" />
+    <Compile Include="Migrations\202201081942140_yyyy.designer.cs">
+      <DependentUpon>202201081942140_yyyy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -327,6 +332,11 @@
       <Project>{AB8A037D-258D-40D4-8DDF-BBE01DAE1196}</Project>
       <Name>TRMDataManager.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202201081942140_yyyy.resx">
+      <DependentUpon>202201081942140_yyyy.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
