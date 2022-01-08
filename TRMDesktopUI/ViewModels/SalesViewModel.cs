@@ -111,19 +111,23 @@ namespace TRMDesktopUI.ViewModels
             if(existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
+                ////hack
+                //Cart.Remove(existingItem);
+                //Cart.Add(existingItem);
             }
             else
             {
             CartItemModel item = new CartItemModel 
             { 
-                Product = SelectedProduct
-                ,QuantityInCart = ItemQuantity
+                Product = SelectedProduct,
+                QuantityInCart = ItemQuantity
             };
             Cart.Add(item);
             }
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Cart);
 
         }
         public bool CanRemoveFromCart
