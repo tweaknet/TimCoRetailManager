@@ -59,9 +59,9 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
-        private BindingList<string> _cart;
+        private BindingList<CartItemModel> _cart;
 
-        public BindingList<string> Cart
+        public BindingList<CartItemModel> Cart
         {
             get { return _cart; }
             set { _cart = value;
@@ -103,7 +103,9 @@ namespace TRMDesktopUI.ViewModels
         }
         public void AddToCart()
         {
-
+            CartItemModel item = new CartItemModel { Product = SelectedProduct
+            ,QuantityInCart = ItemQuantity};
+            Cart.Add(item);
         }
         public bool CanRemoveFromCart
         {
