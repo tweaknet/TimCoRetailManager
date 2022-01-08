@@ -75,31 +75,41 @@ namespace TRMDesktopUI.ViewModels
         public string SubTotal 
         { get 
             {
-                decimal subTotal = 0;
-                foreach(var item in _cart)
-                {
-                    subTotal += (item.Product.RetailPrice * item.QuantityInCart);
-                }
-                return subTotal.ToString("C");  
-            } }
+                return CalculateSubTotal().ToString("C");  
+            } 
+        }
+        private decimal CalculateSubTotal()
+        {
+            decimal subTotal = 0;
+            foreach (var item in _cart)
+            {
+                subTotal += (item.Product.RetailPrice * item.QuantityInCart);
+            }
+            return subTotal;
+        }
         public string Tax
         {
             get
             {
+                return CalculateTax().ToString("C");
+            }
+        }
+        private decimal CalculateTax()
+        {
                 decimal taxAmount = 0;
                 decimal taxRate = _configHelper.GetTaxRate();
                 foreach (var item in _cart)
                 {
                     taxAmount += (item.Product.RetailPrice * item.QuantityInCart * taxRate);
                 }
-                return taxAmount.ToString("C");
-            }
+                return taxAmount;
         }
         public string Total
         {
             get
             {
-                return "0.00";
+                decimal total = CalculateSubTotal() + CalculateTax();
+                return total.ToString("C");
             }
         }
         public bool CanAddToCart
@@ -136,6 +146,8 @@ namespace TRMDesktopUI.ViewModels
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => Cart);
 
         }
@@ -151,7 +163,9 @@ namespace TRMDesktopUI.ViewModels
         }
         public void RemoveFromCart()
         {
-            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => SubTotal); 
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
 
         }
         public bool CanCheckOut
