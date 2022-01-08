@@ -20,9 +20,9 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Products);
             }
         }
-        private string _itemQuantity;
+        private int _itemQuantity;
 
-        public string ItemQuantity
+        public int ItemQuantity
         {
             get { return _itemQuantity; }
             set { _itemQuantity = value; 
@@ -35,7 +35,7 @@ namespace TRMDesktopUI.ViewModels
         {
             get { return _cart; }
             set { _cart = value;
-                NotifyOfPropertyChange(() => ItemQuantity);
+                NotifyOfPropertyChange(() => Cart);
             }
         }
 
