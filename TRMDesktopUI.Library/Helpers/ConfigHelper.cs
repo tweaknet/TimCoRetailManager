@@ -11,9 +11,8 @@ namespace TRMDesktopUI.Library.Helpers
     {
         public decimal GetTaxRate()
         {
-            decimal output = 0;
             string rateText = ConfigurationManager.AppSettings["taxRate"];
-            bool isValidTaxRate = Decimal.TryParse(rateText, out output);
+            bool isValidTaxRate = Decimal.TryParse(rateText, out decimal output);
             if (isValidTaxRate == false)
             {
                 throw new ConfigurationErrorException("tax is empty");
