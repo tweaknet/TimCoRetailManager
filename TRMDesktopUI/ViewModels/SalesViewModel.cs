@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TRMDesktopUI.Library.Api;
+using TRMDesktopUI.Library.Helpers;
 using TRMDesktopUI.Library.Models;
 
 namespace TRMDesktopUI.ViewModels
@@ -13,9 +14,11 @@ namespace TRMDesktopUI.ViewModels
     public class SalesViewModel : Screen
     {
         IProductEndpoint _productEndpoint;
-        public SalesViewModel(IProductEndpoint productEndpoint)
+        IConfigHelper _configHelper;
+        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
         {
             _productEndpoint = productEndpoint;
+            _configHelper = configHelper;
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -84,9 +87,10 @@ namespace TRMDesktopUI.ViewModels
             get
             {
                 decimal taxAmount = 0;
+                decimal taxRate = _configHelper.GetTaxRate();
                 foreach (var item in _cart)
                 {
-                    taxAmount += (item.Product.RetailPrice * item.QuantityInCart);
+                    taxAmount += (item.Product.RetailPrice * item.QuantityInCart * taxRate);
                 }
                 return taxAmount.ToString("C");
             }

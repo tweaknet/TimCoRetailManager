@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace TRMDesktopUI.Library.Helpers
 {
-    public class ConfigHelper
+    public class ConfigHelper : IConfigHelper
     {
-        public double GetTaxRate()
+        public decimal GetTaxRate()
         {
-            double output = 0;
+            decimal output = 0;
             string rateText = ConfigurationManager.AppSettings["taxRate"];
-            bool isValidTaxRate = Double.TryParse(rateText, out output);
+            bool isValidTaxRate = Decimal.TryParse(rateText, out output);
             if (isValidTaxRate == false)
             {
                 throw new ConfigurationErrorException("tax is empty");
