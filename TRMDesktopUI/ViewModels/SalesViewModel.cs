@@ -83,7 +83,12 @@ namespace TRMDesktopUI.ViewModels
         {
             get
             {
-                return "0.00";
+                decimal taxAmount = 0;
+                foreach (var item in _cart)
+                {
+                    taxAmount += (item.Product.RetailPrice * item.QuantityInCart);
+                }
+                return taxAmount.ToString("C");
             }
         }
         public string Total
