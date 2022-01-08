@@ -81,7 +81,7 @@ namespace TRMDesktopUI.ViewModels
                 //caputer more info abou user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-                await _events.PublishOnUIThreadAsync(new LogOnEventModel());
+                await _events.PublishOnUIThreadAsync(new LogOnEvent());
             }
             catch (Exception ex)
             {
