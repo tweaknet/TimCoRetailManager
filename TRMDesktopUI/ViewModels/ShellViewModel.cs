@@ -27,6 +27,7 @@ namespace TRMDesktopUI.ViewModels
 
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
+            _loginVM = _container.GetInstance<LoginViewModel>();
             return ActivateItemAsync(_salesVM);
         }
     }
