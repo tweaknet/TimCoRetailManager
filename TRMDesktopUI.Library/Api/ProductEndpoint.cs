@@ -15,7 +15,7 @@ namespace TRMDesktopUI.Library.Api
             _apiHelper = apiHelper;
         }
 
-        public List<string> GetAll()
+        public async List<string> GetAll()
         {
             using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Product"))
             {
