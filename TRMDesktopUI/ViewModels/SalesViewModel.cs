@@ -45,6 +45,7 @@ namespace TRMDesktopUI.ViewModels
             set {
                 _selectedProduct = value; 
                 NotifyOfPropertyChange(() => SelectedProduct);
+                NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
 
@@ -55,6 +56,7 @@ namespace TRMDesktopUI.ViewModels
             get { return _itemQuantity; }
             set { _itemQuantity = value; 
                 NotifyOfPropertyChange(() => ItemQuantity);
+                NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
         private BindingList<string> _cart;
@@ -91,7 +93,7 @@ namespace TRMDesktopUI.ViewModels
             get
             {
                 bool output = false;
-                if(SelectedProduct?.QuantityInStock >= ItemQuantity)
+                if(ItemQuantity > 0 && SelectedProduct?.QuantityInStock >= ItemQuantity)
                 {
                     output = true;
                 }
