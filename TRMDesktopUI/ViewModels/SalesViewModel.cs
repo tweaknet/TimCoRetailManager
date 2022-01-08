@@ -59,7 +59,7 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
-        private BindingList<CartItemModel> _cart;
+        private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
 
         public BindingList<CartItemModel> Cart
         {

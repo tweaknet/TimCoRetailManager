@@ -50,7 +50,7 @@
                  MinHeight="200" MinWidth="150">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Product_ProductName}"/>
+                    <TextBlock Text="{Binding Product.ProductName}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
