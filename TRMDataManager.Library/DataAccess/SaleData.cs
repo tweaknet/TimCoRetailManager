@@ -14,7 +14,7 @@ namespace TRMDataManager.Library.DataAccess
         {
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
             ProductData product = new ProductData();
-            var taxRate = ConfigHelper.GetTaxRate();
+            var taxRate = ConfigHelper.GetTaxRate()/100;
 
             foreach (var item in saleInfo.SaleDetails)
             {
