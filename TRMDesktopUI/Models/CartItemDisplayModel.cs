@@ -25,7 +25,6 @@ namespace TRMDesktopUI.Models
         private void CallPropertyChanged(string propertyName)
         {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            throw new NotImplementedException();
         }
         public string DisplayText
         {
