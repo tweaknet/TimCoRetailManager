@@ -23,20 +23,24 @@ namespace TRMDesktopUI
         {
             Initialize();
             ConventionManager.AddElementConvention<PasswordBox>(
-    PasswordBoxHelper.BoundPasswordProperty,
-    "Password",
-    "PasswordChanged");
+                PasswordBoxHelper.BoundPasswordProperty,
+                "Password",
+                "PasswordChanged");
         }
-        protected override void Configure()
+        private IMapper ConfigureAutomapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductModel, ProductDisplayModel>();
                 cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
             });
-            var mapper = config.CreateMapper();
+            return config.CreateMapper();
+        }
+        protected override void Configure()
+        {
 
-            _container.Instance(mapper);
+
+            _container.Instance(ConfigureAutomapper());
 
             _container.Instance(_container)
                 .PerRequest<IProductEndpoint, ProductEndpoint>()
