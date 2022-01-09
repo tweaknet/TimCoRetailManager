@@ -15,10 +15,12 @@ namespace TRMDesktopUI.ViewModels
     {
         IProductEndpoint _productEndpoint;
         IConfigHelper _configHelper;
-        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
+        ISaleEndpoint _saleEndpoint;
+        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndpoint saleEndpoint)
         {
             _productEndpoint = productEndpoint;
             _configHelper = configHelper;
+            _saleEndpoint = saleEndpoint;
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -178,7 +180,7 @@ namespace TRMDesktopUI.ViewModels
             }
 
         }
-        public void CheckOut()
+        public async Task CheckOut()
         {
             SaleModel sale = new SaleModel();
             foreach (var item in Cart)
@@ -189,7 +191,7 @@ namespace TRMDesktopUI.ViewModels
                     Quantity = item.QuantityInCart
                 });
             }
-            //post
+            await _saleEndpoint.PostSale(sale);
         }
 
     }
