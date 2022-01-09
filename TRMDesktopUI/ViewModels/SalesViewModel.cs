@@ -134,9 +134,6 @@ namespace TRMDesktopUI.ViewModels
             if(existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
-                //hack
-                Cart.Remove(existingItem);
-                Cart.Add(existingItem);
             }
             else
             {
