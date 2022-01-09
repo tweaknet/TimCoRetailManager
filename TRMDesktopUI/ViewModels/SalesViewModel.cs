@@ -47,18 +47,29 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Products);
             }
         }
+        private CartItemDisplayModel _selectedCartItem;
+
+        public CartItemDisplayModel SelectedCartItem
+        {
+            get { return _selectedCartItem; }
+            set {
+                _selectedCartItem = value; 
+                NotifyOfPropertyChange(() => SelectedCartItem);
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
+            }
+        }
         private ProductDisplayModel _selectedProduct;
 
         public ProductDisplayModel SelectedProduct
         {
             get { return _selectedProduct; }
-            set {
-                _selectedProduct = value; 
+            set
+            {
+                _selectedProduct = value;
                 NotifyOfPropertyChange(() => SelectedProduct);
                 NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
-
         private int _itemQuantity = 1;
 
         public int ItemQuantity
@@ -157,13 +168,24 @@ namespace TRMDesktopUI.ViewModels
             get
             {
                 bool output = false;
-
+                if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock > 0)
+                {
+                    output = true;
+                }
                 return output;
             }
-
         }
         public void RemoveFromCart()
         {
+            SelectedCartItem.Product.QuantityInStock += 1;
+            if (SelectedCartItem.QuantityInCart > 1)
+            {
+                SelectedCartItem.QuantityInCart -= 1;
+            }
+            else
+            {
+                Cart.Remove(SelectedCartItem);
+            }
             NotifyOfPropertyChange(() => SubTotal); 
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
