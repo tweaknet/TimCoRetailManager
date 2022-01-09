@@ -47,6 +47,9 @@ namespace TRMDataManager.Library.DataAccess
             SqlDataAccess sql = new SqlDataAccess();
             sql.SaveData("dbo.spSale_Insert", sale, "EFData");
 
+            //get id
+            sale.Id = sql.LoadData<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate}, "EFData").FirstOrDefault();
+
             foreach (var item in details)
             {
                 item.SaleId = sale.Id;
