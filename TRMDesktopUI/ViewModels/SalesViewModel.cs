@@ -29,7 +29,7 @@ namespace TRMDesktopUI.ViewModels
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            await LoadProducts();
+            await LoadProducts(); 
         }
         private async Task LoadProducts()
         {
@@ -47,8 +47,17 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Products);
             }
         }
+        private async Task ResetSalesViewModel()
+        {
+            //Cart.Clear();
+            Cart = new BindingList<CartItemDisplayModel>();
+            await LoadProducts();
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
+        }
         private CartItemDisplayModel _selectedCartItem;
-
         public CartItemDisplayModel SelectedCartItem
         {
             get { return _selectedCartItem; }
@@ -203,7 +212,6 @@ namespace TRMDesktopUI.ViewModels
                 }
                 return output;
             }
-
         }
         public async Task CheckOut()
         {
@@ -217,7 +225,7 @@ namespace TRMDesktopUI.ViewModels
                 });
             }
             await _saleEndpoint.PostSale(sale);
+            await ResetSalesViewModel();
         }
-
     }
 }
