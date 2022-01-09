@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TRMDataManager.Library.Models;
 
 namespace TRMDataManager.Library.DataAccess
 {
     public class SaleData
     {
-        public void SaveSale(SaleData sale)
+        public void SaveSale(SaleModel sale)
         {
-            // to do solid/dry better
+            List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
+            foreach (var item in sale.SaleDetails)
+            {
+                var detail = new SaleDetailDBModel
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity
+                };
+
+                details.Add(detail);
+            }
         }
         //public List<ProductModel> GetProducts()
         //{
