@@ -50,7 +50,7 @@ namespace TRMDataManager.Library.DataAccess
             foreach (var item in details)
             {
                 item.SaleId = sale.Id;
-            sql.SaveData("dbo.spSaleDetail_Insert", item, "EFData");
+                sql.SaveData("dbo.spSaleDetail_Insert", item, "EFData");
             }
 
         }
