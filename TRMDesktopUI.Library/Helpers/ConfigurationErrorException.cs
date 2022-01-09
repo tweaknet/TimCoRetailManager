@@ -4,21 +4,21 @@ using System.Runtime.Serialization;
 namespace TRMDesktopUI.Library.Helpers
 {
     [Serializable]
-    internal class ConfigurationErrorException : Exception
+    internal class ConfigurationErrorsException : Exception
     {
-        public ConfigurationErrorException()
+        public ConfigurationErrorsException()
         {
         }
 
-        public ConfigurationErrorException(string message) : base(message)
+        public ConfigurationErrorsException(string message) : base(message)
         {
         }
 
-        public ConfigurationErrorException(string message, Exception innerException) : base(message, innerException)
+        public ConfigurationErrorsException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected ConfigurationErrorException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ConfigurationErrorsException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
