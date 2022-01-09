@@ -45,7 +45,14 @@ namespace TRMDataManager.Library.DataAccess
             sale.Total = sale.SubTotal + sale.Tax;
             // save the sale model
             SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveData<SaleDBModel>("dbo.spSale_Insert", sale, "EFData");
+            sql.SaveData("dbo.spSale_Insert", sale, "EFData");
+
+            foreach (var item in details)
+            {
+                item.SaleId = sale.Id;
+            sql.SaveData("dbo.spSaleDetail_Insert", item, "EFData");
+            }
+
         }
         //public List<ProductModel> GetProducts()
         //{
