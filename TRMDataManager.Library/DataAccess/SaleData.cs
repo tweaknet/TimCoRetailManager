@@ -43,24 +43,25 @@ namespace TRMDataManager.Library.DataAccess
                 CashierId = cashierId
             };
             sale.Total = sale.SubTotal + sale.Tax;
-            // save the sale model
-            SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveData("dbo.spSale_Insert", sale, "EFData");
-
-            //get id
-            sale.Id = sql.LoadData<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate}, "EFData").FirstOrDefault();
-
-            foreach (var item in details)
+            using (SqlDataAccess sql = new SqlDataAccess())
             {
-                item.SaleId = sale.Id;
-                sql.SaveData("dbo.spSaleDetail_Insert", item, "EFData");
+                try
+                {
+                    sql.StartTransaction("EFData");
+                    sql.SaveDataInTransaction("dbo.spSale_Insert", sale);
+                    sale.Id = sql.LoadDataInTransaction<int, dynamic>("spSale_Lookup", new { sale.CashierId, sale.SaleDate }).FirstOrDefault();
+                    foreach (var item in details)
+                    {
+                        item.SaleId = sale.Id;
+                        sql.SaveDataInTransaction("dbo.spSaleDetail_Insert", item);
+                    }
+                }
+                catch
+                {
+                    sql.RollbackTransaction();
+                    throw;
+                }
             }
-
         }
-        //public List<ProductModel> GetProducts()
-        //{
-        //    var output = sql.LoadData<ProductModel, dynamic>("dbo.spProduct_GetAll", new { }, "EFData");
-        //    return output;
-        //}
     }
 }

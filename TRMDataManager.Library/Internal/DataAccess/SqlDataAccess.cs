@@ -37,6 +37,7 @@ namespace TRMDataManager.Library.Internal.DataAccess
         {
             string connectionString = GettConnectionString(connectionStringName);
             _connection = new SqlConnection(connectionString);
+            _connection.Open();
             _transaction = _connection.BeginTransaction();
         }
         public List<T> LoadDataInTransaction<T, U>(string storedProcedure, U parameters)
@@ -58,7 +59,6 @@ namespace TRMDataManager.Library.Internal.DataAccess
             _transaction?.Rollback();
             _connection?.Close();
         }
-
         public void Dispose()
         {
             CommitTransaction();
