@@ -64,5 +64,9 @@ namespace TRMDataManager.Library.DataAccess
                 }
             }
         }
+        public List<SaleReportModel> GetSaleReport()
+        {
+
+        }
     }
 }
