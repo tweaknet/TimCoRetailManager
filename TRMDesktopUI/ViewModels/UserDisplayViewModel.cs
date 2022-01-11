@@ -31,7 +31,6 @@ namespace TRMDesktopUI.ViewModels
             }
         }
         private UserModel _selectedUser;
-
         public UserModel SelectedUser
         {
             get { return _selectedUser; }
@@ -39,32 +38,30 @@ namespace TRMDesktopUI.ViewModels
             {
                 _selectedUser = value;
                 SelectedUserName = value.Email;
-                //SelectedUserRoles = new BindingList<string>(value.Roles.Select(x => x.Value).ToList());
+                SelectedUserRoles = new BindingList<string>(value.Roles.Select(x => x.Value).ToList());
                 NotifyOfPropertyChange(() => SelectedUser);
             }
         }
-        private string _selectedUseName;
-
+        private string _selectedUserName;
         public string SelectedUserName
         {
-            get { return _selectedUseName; }
+            get { return _selectedUserName; }
             set
             {
-                _selectedUseName = value;
+                _selectedUserName = value;
                 NotifyOfPropertyChange(() => SelectedUserName);
             }
         }
-        //private BindingList<string> _selectedUserRoles = new BindingList<string>();
-
-        //public BindingList<string> SelectedUserRoles
-        //{
-        //    get { return _selectedUserRoles; }
-        //    set
-        //    {
-        //        _selectedUserRoles = value;
-        //        NotifyOfPropertyChange(() => SelectedUserRoles);
-        //    }
-        //}
+        private BindingList<string> _selectedUserRoles = new BindingList<string>();
+        public BindingList<string> SelectedUserRoles
+        {
+            get { return _selectedUserRoles; }
+            set
+            {
+                _selectedUserRoles = value;
+                NotifyOfPropertyChange(() => SelectedUserRoles);
+            }
+        }
         public UserDisplayViewModel(StatusInfoViewModel status, IWindowManager window, IUserEndpoint userEndpoint)
         {
             _status = status;
