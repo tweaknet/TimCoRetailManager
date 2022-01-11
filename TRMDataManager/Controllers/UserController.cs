@@ -62,13 +62,13 @@ namespace TRMDataManager.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/User/Admin/AddRole")]
-        public void AddRole(UserRolePairModel pairing)
+        public void AddRole(string userId, string role)
         {
             using (var context = new ApplicationDbContext())
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                userManager.AddToRole(pairing.UserId, pairing.RoleName);
+                userManager.AddToRole(userId, role);
             }
         }
         [Authorize(Roles = "Admin")]
