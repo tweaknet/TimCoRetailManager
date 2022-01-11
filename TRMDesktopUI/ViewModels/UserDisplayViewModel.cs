@@ -30,6 +30,27 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Users);
             }
         }
+        private UserModel _selectedUser;
+
+        public UserModel SelectedUser
+        {
+            get { return _selectedUser; }
+            set 
+            { 
+                _selectedUser = value;
+                SelectedUserName = value.Email;
+                NotifyOfPropertyChange(() => SelectedUser);
+            }
+        }
+        private string _selectedUseName;
+
+        public string SelectedUserName
+        {
+            get { return _selectedUseName; }
+            set { _selectedUseName = value;
+                NotifyOfPropertyChange(() => SelectedUserName);
+            }
+        }
 
         public UserDisplayViewModel(StatusInfoViewModel status, IWindowManager window, IUserEndpoint userEndpoint)
         {

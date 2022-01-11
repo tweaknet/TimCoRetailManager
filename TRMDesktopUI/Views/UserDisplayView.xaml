@@ -31,7 +31,7 @@
         <!--column0-->
         <TextBlock Text="Users" Grid.Row="1" Grid.Column="0"/>
         <ListBox x:Name="Users" Grid.Row="2" Grid.Column="0"
-                 MinHeight="200" MinWidth="150" >
+                 MinHeight="200" MinWidth="150" SelectedItem="SelectedUser" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
