@@ -17,7 +17,7 @@ namespace TRMDesktopUI.Library.Api
         }
         public async Task<List<UserModel>> GetAll()
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/User/Admin/GetAllUsers"))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("api/User/Admin/GetAllUsers"))
             {
                 if (response.IsSuccessStatusCode)
                 {

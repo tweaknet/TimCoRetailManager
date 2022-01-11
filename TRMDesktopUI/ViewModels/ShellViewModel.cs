@@ -42,7 +42,7 @@ namespace TRMDesktopUI.ViewModels
         {
             TryCloseAsync();
         }
-        public void UserManagment()
+        public void UserManagement()
         {
             ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
 
