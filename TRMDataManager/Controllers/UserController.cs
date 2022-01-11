@@ -10,7 +10,7 @@ using TRMDataManager.Models;
 namespace TRMDataManager.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/User")]
+    //[RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         [HttpGet]
@@ -20,7 +20,7 @@ namespace TRMDataManager.Controllers
             UserData data = new UserData();
             return data.GetUserById(userId).First();
         }
-        [AllowAnonymous]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         [Route("Admin/GetAllUsers")]
         public List<ApplicationUserModel> GetAllUsers()

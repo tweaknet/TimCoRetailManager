@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TRMDesktopUI.ViewModels
 {
-    internal class StatusInfoViewModel : Screen
+    public class StatusInfoViewModel : Screen
     {
         public string Header { get; private set; }
         public string Message { get; private set; }

@@ -54,6 +54,7 @@
     <Compile Include="Api\ISaleEndpoint.cs" />
     <Compile Include="Api\ProductEndpoint.cs" />
     <Compile Include="Api\SaleEndpoint.cs" />
+    <Compile Include="Api\UserEndpoint.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\ConfigurationErrorException.cs" />
     <Compile Include="Helpers\IConfigHelper.cs" />
