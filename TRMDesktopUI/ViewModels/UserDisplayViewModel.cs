@@ -31,6 +31,7 @@ namespace TRMDesktopUI.ViewModels
             }
         }
         private UserModel _selectedUser;
+        private BindingList<string> _selectedUserRoles;// = new BindingList<string>();
         public UserModel SelectedUser
         {
             get { return _selectedUser; }
@@ -52,7 +53,6 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => SelectedUserName);
             }
         }
-        private BindingList<string> _selectedUserRoles = new BindingList<string>();
         public BindingList<string> SelectedUserRoles
         {
             get { return _selectedUserRoles; }

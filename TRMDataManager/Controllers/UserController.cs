@@ -55,8 +55,7 @@ namespace TRMDataManager.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                var roles = context.Roles.ToDictionary(x => x.Id, x => x.Name);
-                return roles;
+                return context.Roles.ToDictionary(x => x.Id, x => x.Name);
             }
         }
         [Authorize(Roles = "Admin")]
