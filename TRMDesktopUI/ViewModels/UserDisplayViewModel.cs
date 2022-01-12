@@ -53,7 +53,7 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => SelectedUserName);
             }
         }
-        private BindingList<string> _selectedUserRoles = new BindingList<string>();
+        private BindingList<string> _selectedUserRoles;// = new BindingList<string>();
         public BindingList<string> SelectedUserRoles
         {
             get { return _selectedUserRoles; }
@@ -61,6 +61,16 @@ namespace TRMDesktopUI.ViewModels
             {
                 _selectedUserRoles = value;
                 NotifyOfPropertyChange(() => SelectedUserRoles);
+            }
+        }
+        private BindingList<string> _availableRoles = new BindingList<string>();
+        public BindingList<string> AvailableRoles
+        {
+            get { return _availableRoles; }
+            set
+            {
+                _availableRoles = value;
+                NotifyOfPropertyChange(() => AvailableRoles);
             }
         }
         public UserDisplayViewModel(StatusInfoViewModel status, IWindowManager window, IUserEndpoint userEndpoint)
