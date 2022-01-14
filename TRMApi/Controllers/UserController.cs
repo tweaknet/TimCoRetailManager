@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using TRMApi.Data;
 using TRMApi.Models;
 using TRMDataManager.Library.DataAccess;
@@ -20,7 +21,7 @@ namespace TRMApi.Controllers
         [HttpGet]
         public UserModel GetById()
         {
-            string userId = RequestContext.Principal.Identity.GetUserId();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //RequestContext.Principal.Identity.GetUserId();
             UserData data = new UserData();
             return data.GetUserById(userId).First();
         }

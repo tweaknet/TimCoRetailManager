@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 using TRMDataManager.Library.DataAccess;
 using TRMDataManager.Library.Models;
 
@@ -15,7 +16,7 @@ namespace TRMApi.Controllers
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
-            string userId = RequestContext.Principal.Identity.GetUserId();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             data.SaveSale(sale, userId);
         }
         [Authorize(Roles = "Admin")]
