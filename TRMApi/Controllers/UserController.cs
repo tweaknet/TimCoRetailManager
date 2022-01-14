@@ -1,6 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using TRMApi.Data;
+using TRMApi.Models;
+using TRMDataManager.Library.DataAccess;
+using TRMDataManager.Library.Models;
 
 namespace TRMApi.Controllers
 {
@@ -63,7 +71,7 @@ namespace TRMApi.Controllers
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                userManager.AddToRole(pairing.UserId, pairing.RoleName);
+                userManager.AddToRoleAsync(pairing.UserId, pairing.RoleName);
             }
         }
         [Authorize(Roles = "Admin")]
@@ -75,7 +83,7 @@ namespace TRMApi.Controllers
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                userManager.RemoveFromRole(pairing.UserId, pairing.RoleName);
+                userManager.RemoveFromRoleAsync(pairing.UserId, pairing.RoleName);
             }
         }
     }
