@@ -20,6 +20,7 @@ namespace TRMApiv2.Controllers
             _config = config;
         }
         [Authorize(Roles = "Cashier")]
+        [HttpPost]
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData(_config);
@@ -28,6 +29,7 @@ namespace TRMApiv2.Controllers
         }
         [Authorize(Roles = "Admin")]
         [Route("GetSalesReport")]
+        [HttpGet]
         public List<SaleReportModel> GetSalesReport()
         {
             SaleData data = new SaleData(_config);
