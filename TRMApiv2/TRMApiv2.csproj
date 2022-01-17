@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TRMDataManager.Library\TRMDataManager.Library.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
