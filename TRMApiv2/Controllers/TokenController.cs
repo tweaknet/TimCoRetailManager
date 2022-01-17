@@ -60,7 +60,7 @@ namespace TRMApiv2.Controllers
             }
             var token = new JwtSecurityToken(
                 new JwtHeader(
-                    new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey")),
+                    new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKeyMySecretKeyMySecretKey")),
                     SecurityAlgorithms.HmacSha256)), new JwtPayload(claims));
             var output = new
             {
