@@ -24,8 +24,8 @@ namespace TRMDesktopUI.ViewModels
             _user = user;
             _apiHelper = apiHelper;
 
-            _events.SubscribeOnUIThread(this);
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            _events.SubscribeOnPublishedThread(this);
+            ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
         }
         public bool IsLoggedIn
         { get
@@ -42,9 +42,9 @@ namespace TRMDesktopUI.ViewModels
         {
             TryCloseAsync();
         }
-        public void UserManagement()
+        public async Task UserManagement()
         {
-            ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+            await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
 
         }
         public async Task LogOut()
