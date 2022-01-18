@@ -47,17 +47,17 @@ namespace TRMDesktopUI.ViewModels
             ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
 
         }
-        public void LogOut()
+        public async Task LogOut()
         {
             _user.ResetUserModel();
             _apiHelper.LogOffUser();
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            await ActivateItemAsync(IoC.Get<LoginViewModel>(),new CancellationToken());
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
-        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
+        public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
+            await ActivateItemAsync(_salesVM, cancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
-            return ActivateItemAsync(_salesVM);
         }
     }
 }
