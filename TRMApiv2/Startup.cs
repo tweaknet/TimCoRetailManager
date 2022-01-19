@@ -44,6 +44,7 @@ namespace TRMApiv2
             services.AddTransient<IInventoryData, InventoryData>();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<IProductData, ProductData>();
+            services.AddTransient<ISaleData, SaleData>();
 
             services.AddAuthentication(options =>
             {
