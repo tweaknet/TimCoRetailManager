@@ -14,18 +14,16 @@ namespace TRMDesktopUI.ViewModels
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
         private IEventAggregator _events;
-        private SalesViewModel _salesVM;
         private ILoggedInUserModel _user;
         private IAPIHelper _apiHelper;
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events, ILoggedInUserModel user, IAPIHelper apiHelper)
         {
             _events = events;
-            _salesVM = salesVM;
             _user = user;
             _apiHelper = apiHelper;
 
-            _events.SubscribeOnUIThread(this);
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            _events.SubscribeOnPublishedThread(this);
+            ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
         }
         public bool IsLoggedIn
         { get
@@ -42,22 +40,22 @@ namespace TRMDesktopUI.ViewModels
         {
             TryCloseAsync();
         }
-        public void UserManagement()
+        public async Task UserManagement()
         {
-            ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+            await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
 
         }
-        public void LogOut()
+        public async Task LogOut()
         {
             _user.ResetUserModel();
             _apiHelper.LogOffUser();
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            await ActivateItemAsync(IoC.Get<LoginViewModel>(),new CancellationToken());
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
-        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
+        public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
+            await ActivateItemAsync(IoC.Get<SalesViewModel>(), cancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
-            return ActivateItemAsync(_salesVM);
         }
     }
 }
