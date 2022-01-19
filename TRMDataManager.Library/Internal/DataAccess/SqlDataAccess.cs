@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace TRMDataManager.Library.Internal.DataAccess
 {
-    internal class SqlDataAccess : IDisposable
+    public class SqlDataAccess : IDisposable, ISqlDataAccess
     {
         private readonly IConfiguration _config;
         public SqlDataAccess(IConfiguration config)
@@ -49,12 +49,12 @@ namespace TRMDataManager.Library.Internal.DataAccess
         }
         public List<T> LoadDataInTransaction<T, U>(string storedProcedure, U parameters)
         {
-                List<T> rows = _connection.Query<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure, transaction: _transaction).ToList();
-                return rows;
+            List<T> rows = _connection.Query<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure, transaction: _transaction).ToList();
+            return rows;
         }
         public void SaveDataInTransaction<T>(string storedProcedure, T parameters)
         {
-                _connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure, transaction: _transaction);
+            _connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure, transaction: _transaction);
         }
         private bool isClosed = false;
 
@@ -68,17 +68,17 @@ namespace TRMDataManager.Library.Internal.DataAccess
         {
             _transaction?.Rollback();
             _connection?.Close();
-            isClosed=true;
+            isClosed = true;
         }
         public void Dispose()
         {
-            if (isClosed==false)
+            if (isClosed == false)
             {
                 try
                 {
                     CommitTransaction();
                 }
-                catch 
+                catch
                 {
                     //todo log this issue
                 }

@@ -12,14 +12,16 @@ namespace TRMDataManager.Library.DataAccess
     public class SaleData
     {
         private readonly IConfiguration _config;
-        public SaleData(IConfiguration config)
+        private readonly IProductData _productData;
+
+        public SaleData(IConfiguration config, IProductData productData)
         {
             _config = config;
+            _productData = productData;
         }
         public void SaveSale(SaleModel saleInfo, string cashierId)
         {
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
-            ProductData product = new ProductData(_config);
             var taxRate = ConfigHelper.GetTaxRate()/100;
 
             foreach (var item in saleInfo.SaleDetails)
@@ -30,7 +32,7 @@ namespace TRMDataManager.Library.DataAccess
                     Quantity = item.Quantity
                 };
                 //get the info about this product
-                var productInfo = product.GetProductById(detail.ProductId);
+                var productInfo = _productData.GetProductById(detail.ProductId);
                 if (productInfo == null)
                 {
                     throw new Exception($"the product{detail.ProductId} could not be found");
