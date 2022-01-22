@@ -38,7 +38,7 @@ namespace TRMDesktopUI.ViewModels
             {
                 _selectedUser = value;
                 SelectedUserName = value.Email;
-                //SelectedUserRoles = new BindingList<string>(value.Roles.Select(x => x.Value).ToList());
+                UserRoles = new BindingList<string>(value.Roles.Select(x => x.Value).ToList());
                 LoadRoles();
                 NotifyOfPropertyChange(() => SelectedUser);
             }
@@ -48,9 +48,11 @@ namespace TRMDesktopUI.ViewModels
         public string SelectedUserRole
         {
             get { return _selectedUserRole; }
-            set {
-                _selectedUserRole = value; 
+            set
+            {
+                _selectedUserRole = value;
                 NotifyOfPropertyChange(() => SelectedUserRole);
+                NotifyOfPropertyChange(() => CanRemoveSelectedRole);
             }
         }
         private string _selectedAvailableRole;
@@ -58,9 +60,11 @@ namespace TRMDesktopUI.ViewModels
         public string SelectedAvailableRole
         {
             get { return _selectedAvailableRole; }
-            set {
-                _selectedAvailableRole = value; 
+            set
+            {
+                _selectedAvailableRole = value;
                 NotifyOfPropertyChange(() => SelectedAvailableRole);
+                NotifyOfPropertyChange(() => CanAddSelectedRole);
             }
         }
 
@@ -75,7 +79,7 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => SelectedUserName);
             }
         }
-        private BindingList<string> _userRoles;// = new BindingList<string>();
+        private BindingList<string> _userRoles = new BindingList<string>();
         public BindingList<string> UserRoles
         {
             get { return _userRoles; }
@@ -135,11 +139,40 @@ namespace TRMDesktopUI.ViewModels
         private async Task LoadRoles()
         {
             var roles = await _userEndpoint.GetAllRoles();
+            AvailableRoles.Clear();
             foreach (var role in roles)
             {
-                if (UserRoles.IndexOf(role.Value) <0)
+                if (UserRoles.IndexOf(role.Value) < 0)
                 {
                     AvailableRoles.Add(role.Value);
+                }
+            }
+        }
+        public bool CanAddSelectedRole
+        {
+            get
+            {
+                if(SelectedUser == null || SelectedAvailableRole == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        public bool CanRemoveSelectedRole
+        {
+            get
+            {
+                if (SelectedUser == null || SelectedAvailableRole == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
             }
         }
