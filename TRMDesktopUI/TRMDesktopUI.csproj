@@ -14,4 +14,13 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\TRMDesktopUI.Library\TRMDesktopUI.Library.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="appsetting.Development.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="appsetting.Production.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties appsetting_1development_1json__JsonSchema="https://json.schemastore.org/appsettings.json" appsetting_1production_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
 </Project>
