@@ -8,7 +8,18 @@ namespace Portal.Authentication
     {
         public static void ExtractRolesFromJWT(List<Claim> claims, Dictionary<string,object> keyValuePairs)
         {
-            keyValuePairs.TryGetValue(ClaimTypes.Role, out object role);
+            keyValuePairs.TryGetValue(ClaimTypes.Role, out object roles);
+            if(roles is not null)
+            {
+                var parsedRoles = roles.ToString().Trim().TrimStart('[').TrimEnd(']').Split(',');
+                if(parsedRoles.Length > 1)
+                {
+                    foreach(var parsedRole in parsedRoles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, parsedRole.Trim('"')));
+                    }
+                }
+            }
         }
         private static byte[] ParseBase64WithoutPadding(string base64)
         {
