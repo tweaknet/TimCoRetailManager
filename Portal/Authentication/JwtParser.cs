@@ -19,6 +19,11 @@ namespace Portal.Authentication
                         claims.Add(new Claim(ClaimTypes.Role, parsedRole.Trim('"')));
                     }
                 }
+                else
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, parsedRoles[0]));
+                }
+                keyValuePairs.Remove(ClaimTypes.Role);
             }
         }
         private static byte[] ParseBase64WithoutPadding(string base64)
