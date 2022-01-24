@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Portal.Models;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -35,6 +36,10 @@ namespace Portal.Authentication
                 return null;
             }
             var result = JsonSerializer.Deserialize<AuthenticatedUserModel>(authContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+            await _localStorage.SetItemAsync("authToken", result.Access_Token);
+            ((AuthStateProvider)_authStateProvider).NotifyUserAuthentication(result.Access_Token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Access_Token);
+            return result;
         }
     }
 }
