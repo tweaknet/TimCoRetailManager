@@ -16,6 +16,7 @@ namespace Portal.Authentication
             var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string,object>>(jsonBytes);
             ExtractRolesFromJWT(claims, keyValuePairs);
             claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key,kvp.Value.ToString())));
+            return claims;
         }
         public static void ExtractRolesFromJWT(List<Claim> claims, Dictionary<string,object> keyValuePairs)
         {
