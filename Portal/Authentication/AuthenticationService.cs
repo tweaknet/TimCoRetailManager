@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Authentication
 {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly HttpClient _client;
         private readonly AuthenticationStateProvider _authStateProvider;
@@ -31,11 +31,11 @@ namespace Portal.Authentication
             });
             var authResult = await _client.PostAsync("https://localhost:44392/token", data);
             var authContent = await authResult.Content.ReadAsStringAsync();
-            if(authResult.IsSuccessStatusCode == false)
+            if (authResult.IsSuccessStatusCode == false)
             {
                 return null;
             }
-            var result = JsonSerializer.Deserialize<AuthenticatedUserModel>(authContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+            var result = JsonSerializer.Deserialize<AuthenticatedUserModel>(authContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             await _localStorage.SetItemAsync("authToken", result.Access_Token);
             ((AuthStateProvider)_authStateProvider).NotifyUserAuthentication(result.Access_Token);
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Access_Token);
