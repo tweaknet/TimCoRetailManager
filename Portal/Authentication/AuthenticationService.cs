@@ -41,5 +41,11 @@ namespace Portal.Authentication
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Access_Token);
             return result;
         }
+        public async Task Logout()
+        {
+            await _localStorage.RemoveItemAsync("authToken");
+            ((AuthStateProvider)_authStateProvider).NotifyUserLogout();
+            _client.DefaultRequestHeaders.Authorization = null;
+        }
     }
 }
