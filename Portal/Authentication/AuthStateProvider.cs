@@ -1,6 +1,8 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Portal.Authentication
@@ -19,6 +21,18 @@ namespace Portal.Authentication
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var token = await _localStorage.GetItemAsync<string>("authToken");
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return _anonymous;
+            }
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",token);
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType")));
+        }
+        public void NotifyUserAuthentication(string token)
+        {
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType"));
+            var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+            NotifyAuthenticationStateChanged(authState);
         }
     }
 }
