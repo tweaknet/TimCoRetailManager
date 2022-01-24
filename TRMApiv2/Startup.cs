@@ -91,6 +91,7 @@ namespace TRMApiv2
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseCors("OpenCorsPolicy");
             app.UseStaticFiles();
 
             app.UseRouting();
