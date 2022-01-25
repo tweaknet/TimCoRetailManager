@@ -1,0 +1,41 @@
+﻿@inject IAuthenticationService AuthService
+@inject NavigationManager NavManager
+
+<h3>Log In</h3>
+
+@if (showAuthenticatioError)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@authenticationErrorText</p>
+    </div>
+}
+<EditForm Model="model" OnValidSubmit="ExecuteLogin" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="email" class="col-md-2 col-form-label">Email:</label>
+        <div class="col-md-10">
+            <InputText id="email" class="form-control" @bind-Value="model.Email" />
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private AuthenticationUserModel model = new();
+    private bool showAuthenticatioError = false;
+    private string authenticationErrorText = "";
+    private async Task ExecuteLogin()
+    {
+        showAuthenticatioError = false;
+        var result = AuthService.Login(model);
+        if(result is not null)
+        {
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            authenticationErrorText = "there was an error to log in.";
+            showAuthenticatioError = true;
+        }
+    }
+}
