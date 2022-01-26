@@ -43,7 +43,7 @@
     private async Task ExecuteLogin()
     {
         showAuthenticatioError = false;
-        var result = AuthService.Login(model);
+        var result = await AuthService.Login(model);
         if(result is not null)
         {
             NavManager.NavigateTo("/");
