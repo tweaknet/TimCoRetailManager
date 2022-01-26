@@ -6,6 +6,7 @@
 AS
 begin
 set nocount on;
+insert into [dbo].[User] (Id, FirstName, LastName, EmailAddress)
+values (@Id, @FirstName, @LastName, @EmailAddress);
 
-
-RETURN 0
+end

@@ -41,7 +41,7 @@ namespace TRMApiv2.Controllers
         }
         public record UserRegistrationModel(string FirstName, string LastName, string EmailAddress, string Password);
         [HttpPost]
-        [Route("User/Register")]
+        [Route("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserRegistrationModel user)
         {
@@ -59,6 +59,19 @@ namespace TRMApiv2.Controllers
                     IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
                     if (result.Succeeded)
                     {
+                        existingUser = await _userManager.FindByEmailAsync(user.EmailAddress);
+                        if(existingUser == null)
+                        {
+                            return BadRequest();
+                        }
+                        UserModel u = new()
+                        {
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            EmailAddress = user.EmailAddress,
+                            Id = existingUser.Id
+                        };
+                        _userData.CreateUser(u);
                         return Ok();
                     }
                 }
