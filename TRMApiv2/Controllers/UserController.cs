@@ -39,6 +39,33 @@ namespace TRMApiv2.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return _userData.GetUserById(userId).First();
         }
+        public record UserRegistrationModel(string FirstName, string LastName, string EmailAddress, string Password);
+        [HttpPost]
+        [Route("User/Register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(UserRegistrationModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _userManager.FindByEmailAsync(user.EmailAddress);
+                if (existingUser == null)
+                {
+                    IdentityUser newUser = new()
+                    {
+                        Email = user.EmailAddress,
+                        EmailConfirmed = true,
+                        UserName = user.EmailAddress
+                    };
+                    IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                }
+            }
+            return BadRequest();
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("Admin/GetAllUsers")]
