@@ -23,7 +23,7 @@
     <div class="form-group row">
         <label for="password" class="col-md-2 col-form-label">Password:</label>
         <div class="col-md-10">
-            <InputText typeof="password" id="password" class="form-control" @bind-Value="model.Password" />
+            <InputText type="password" id="password" class="form-control" @bind-Value="model.Password" />
             <ValidationMessage For="@(() => model.Password)" />
         </div>
     </div>
