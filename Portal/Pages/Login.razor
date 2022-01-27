@@ -23,7 +23,7 @@
             <button type="submit" class="btn btn-success">Log In</button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-primary" @onclick="RegisterUser" >Reister</button>
+            <button type="button" class="btn btn-primary" @onclick="RegisterUser">Reister</button>
         </div>
     </div>
     @*    <DataAnnotationsValidator />
@@ -48,7 +48,14 @@
         <button type="submit" class="btn btn-success">Log In</button>
         </div>
         </div>*@
-
+    @if (showAuthenticatioError)
+    {
+        <div class="form-row">
+            <div class="text-danger">
+                @authenticationErrorText
+            </div>
+        </div>
+    }
 </EditForm>
 
 @code {

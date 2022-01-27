@@ -84,14 +84,14 @@ namespace TRMApiv2.Controllers
         [Route("Admin/GetAllUsers")]
         public List<ApplicationUserModel> GetAllUsers()
         {
-            List<ApplicationUserModel> output = new List<ApplicationUserModel>();
+            List<ApplicationUserModel> output = new();
                 var users = _context.Users.ToList();
                 var userRoles = from ur in _context.UserRoles
                                 join r in _context.Roles on ur.RoleId equals r.Id
                                 select new {ur.UserId, ur.RoleId,r.Name};
                 foreach (var user in users)
                 {
-                    ApplicationUserModel u = new ApplicationUserModel
+                    ApplicationUserModel u = new()
                     {
                         Id = user.Id,
                         Email = user.Email
@@ -114,7 +114,7 @@ namespace TRMApiv2.Controllers
         public async Task AddRole(UserRolePairModel pairing)
         {
             string loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var loggedInUser = _userData.GetUserById(loggedInUserId).First();
+            //var loggedInUser = _userData.GetUserById(loggedInUserId).First();
             var user = await _userManager.FindByIdAsync(pairing.UserId);
             _logger.LogInformation("Admin{Admin} added user {user} to role {Role}", loggedInUserId, user.Id, pairing.RoleName);
             await _userManager.AddToRoleAsync(user, pairing.RoleName);

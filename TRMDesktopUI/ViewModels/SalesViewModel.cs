@@ -18,10 +18,10 @@ namespace TRMDesktopUI.ViewModels
 {
     public class SalesViewModel : Screen
     {
-        IProductEndpoint _productEndpoint;
-        IConfiguration _config;
-        ISaleEndpoint _saleEndpoint;
-        IMapper _mapper;
+        private readonly IProductEndpoint _productEndpoint;
+        private readonly IConfiguration _config;
+        private readonly ISaleEndpoint _saleEndpoint;
+        private readonly IMapper _mapper;
         private readonly StatusInfoViewModel _status;
         private readonly IWindowManager _window;
         public SalesViewModel(IProductEndpoint productEndpoint, IConfiguration config, ISaleEndpoint saleEndpoint, IMapper mapper, 
@@ -118,7 +118,7 @@ namespace TRMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanAddToCart);
             }
         }
-        private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>();
+        private BindingList<CartItemDisplayModel> _cart = new();
 
         public BindingList<CartItemDisplayModel> Cart
         {
@@ -186,7 +186,7 @@ namespace TRMDesktopUI.ViewModels
             }
             else
             {
-            CartItemDisplayModel item = new CartItemDisplayModel 
+            CartItemDisplayModel item = new() 
             { 
                 Product = SelectedProduct,
                 QuantityInCart = ItemQuantity
@@ -244,7 +244,7 @@ namespace TRMDesktopUI.ViewModels
         }
         public async Task CheckOut()
         {
-            SaleModel sale = new SaleModel();
+            SaleModel sale = new();
             foreach (var item in Cart)
             {
                 sale.SaleDetails.Add(new SaleDetailModel

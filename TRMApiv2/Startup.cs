@@ -31,6 +31,7 @@ namespace TRMApiv2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddCors(policy =>
             {
                 policy.AddPolicy("OpenCorsPolicy", opt => opt.AllowAnyOrigin()
@@ -82,7 +83,7 @@ namespace TRMApiv2
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
