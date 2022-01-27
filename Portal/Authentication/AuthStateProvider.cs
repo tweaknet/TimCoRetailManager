@@ -33,31 +33,41 @@ namespace Portal.Authentication
             {
                 return _anonymous;
             }
+            bool isAuthetcated = await NotifyUserAuthentication(token);
+            if (isAuthetcated == false)
+            {
+                return _anonymous;
+            }
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType")));
         }
-        public async void NotifyUserAuthentication(string token)
+        public async Task<bool> NotifyUserAuthentication(string token)
         {
+            bool isAuthenticatedOutput;
             Task<AuthenticationState> authState;
             try
             {
                 await _apiHelper.GetLoggedInUserInfo(token);
                 var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType"));
                 authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+                NotifyAuthenticationStateChanged(authState);
+                isAuthenticatedOutput = true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                await _localStorage.RemoveItemAsync(_config["authTokenStorageKey"]);
-                authState = Task.FromResult(_anonymous);
+                //authState = Task.FromResult(_anonymous);
+                await NotifyUserLogout();
+                isAuthenticatedOutput =false;
             }
-
-            NotifyAuthenticationStateChanged(authState);
+            return isAuthenticatedOutput;
         }
-        public void NotifyUserLogout()
+        public async Task NotifyUserLogout()
         {
+            await _localStorage.RemoveItemAsync(_config["authTokenStorageKey"]);
             var authState = Task.FromResult(_anonymous);
             _apiHelper.LogOffUser();
+            _httpClient.DefaultRequestHeaders.Authorization = null;
             NotifyAuthenticationStateChanged(authState);
         }
     }

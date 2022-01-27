@@ -35,7 +35,7 @@ else
                 List<ProductModel> data = await Produtcs.GetAll();
                 foreach (var p in data)
                 {
-                    Console.WriteLine(p);
+                    Console.WriteLine(p.Description);
                 }
             }
             catch(Exception ex)
