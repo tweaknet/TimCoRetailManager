@@ -52,7 +52,14 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <a href="">
+                                    @if (string.IsNullOrWhiteSpace(product.ProductImage))
+                                   {
+                                    <img src="https://dummyimage.com/200x100/000/fff&text=commingSoon" alt="placeholder image" />
+                                   }
+                                    else
+                                    {
                                     <img src="@($"{api}{product.ProductImage}")" class="img-fluid" alt="placeholder image" />
+                                    }
                                 </a>
                                 <p class="my-2 text-justify">
                                     @product.Description
