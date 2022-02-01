@@ -48,6 +48,13 @@ namespace Portal.Authentication
             try
             {
                 await _apiHelper.GetLoggedInUserInfo(token);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
                 var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType"));
                 authState = Task.FromResult(new AuthenticationState(authenticatedUser));
                 NotifyAuthenticationStateChanged(authState);
