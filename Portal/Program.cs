@@ -31,6 +31,7 @@ namespace Portal
             builder.Services.AddSingleton<ILoggedInUserModel, LoggedInUserModel>();
 
             builder.Services.AddTransient<IProductEndpoint, ProductEndpoint>();
+            builder.Services.AddTransient<IHolidaysEndpoint, HolidaysEndpoint>();
             builder.Services.AddTransient<IUserEndpoint, UserEndpoint>();
             builder.Services.AddTransient<ISaleEndpoint, SaleEndpoint>();
 

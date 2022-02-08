@@ -1,0 +1,114 @@
+﻿@page "/holidays"
+@using Microsoft.Extensions.Configuration
+@inject IHolidaysEndpoint HolidaysEndpoint
+@inject IConfiguration config
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@attribute [Authorize(Roles = "Cashier")]
+
+<h3>Holidays</h3>
+
+@if (holidays is null)
+{
+    <div class="row">
+        <p>no holidays have been loaded.</p>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            @for (var i = 0; i < 7; i++)
+            {
+                <div class="col-xl-4 col-lg-6 mb-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="">
+                                    <img src="https://dummyimage.com/1200x900/000/fff" class="img-fluid" alt="placeholder image" />
+                                </a>
+                                <p class="my-2 text-justify">
+                                    a placeholder coś tam layaut full page.
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Quantity: </strong>0
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="h4 mb-3">Sample item - 0.00pln</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (HolidayModel holiday in holidays)
+            {
+                <div class="col-xl-4 col-lg-6 mb-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="">
+                                    @if (holiday.HolidayTypeId >= 0)
+                                    {
+                                        <img src="https://dummyimage.com/200x100/000/fff&text=commingSoon" alt="placeholder image" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@($"{api}{holiday.Data}")" class="img-fluid" alt="placeholder image" />
+                                    }
+                                </a>
+                                <p class="my-2 text-justify">
+                                    @holiday.Data
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Quantity: </strong>@holiday.HolidayTypeId
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="h5 mb-3">@holiday.IdHolidayType - $@holiday.IdUser  - $@holiday.Id</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private List<HolidayModel> holidays;
+    private string api;
+    private const string HolidayListName = "holidayList";
+    private const string HolidayCacheDate = "holidayCacheDate";
+    protected override async Task OnInitializedAsync()
+    {
+        api = config.GetValue<string>("api");
+        holidays = await localStorage.GetItemAsync<List<HolidayModel>>(HolidayListName);
+        DateTime? cacheDate = await localStorage.GetItemAsync<DateTime?>(HolidayCacheDate);
+        double totalMinutes = 0;
+        if (cacheDate is not null)
+        {
+            totalMinutes = DateTime.UtcNow.Subtract((DateTime)cacheDate).TotalMinutes;
+        }
+        if (holidays is null || cacheDate is null || totalMinutes > 10)
+        {
+            try
+            {
+                holidays = await HolidaysEndpoint.GetAll();
+                await localStorage.SetItemAsync(HolidayListName, holidays);
+                await localStorage.SetItemAsync(HolidayCacheDate, DateTime.UtcNow);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}

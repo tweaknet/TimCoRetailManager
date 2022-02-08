@@ -8,19 +8,19 @@ using TRMDesktopUI.Library.Models;
 
 namespace TRMDesktopUI.Library.Api
 {
-    public class ProductEndpoint : IProductEndpoint
+    public class HolidaysEndpoint : IHolidaysEndpoint
     {
         public IAPIHelper _apiHelper { get; set; }
-        public ProductEndpoint(IAPIHelper apiHelper)
+        public HolidaysEndpoint(IAPIHelper apiHelper)
         {
             _apiHelper = apiHelper;
         }
-        public async Task<List<ProductModel>> GetAll()
+        public async Task<List<HolidayModel>> GetAll()
         {
-            using HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Product");
+            using HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Holidays");
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsAsync<List<ProductModel>>();
+                return await response.Content.ReadAsAsync<List<HolidayModel>>();
             }
             else
             {
