@@ -9,22 +9,16 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> Strona główna
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-
         <AuthorizeView>
             <Authorized>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="holidays">
+                        <span class="oi oi-cloud-upload" aria-hidden="true"></span> Urlopy
+                    </NavLink>
+                </li>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="logout">
                         <span class="oi oi-account-logout" aria-hidden="true"></span> logout
@@ -39,20 +33,28 @@
                 </li>
             </NotAuthorized>
         </AuthorizeView>
-
+        <AuthorizeView Roles="abc">
+            <Authorized>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="counter">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="fetchdata">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="products">
+                        <span class="oi oi-cloud-upload" aria-hidden="true"></span> products
+                    </NavLink>
+                </li>
+            </Authorized>
+        </AuthorizeView>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="verifyauth">
-                <span class="oi oi-minus" aria-hidden="true"></span> verify auth
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="products">
-                <span class="oi oi-cloud-upload" aria-hidden="true"></span> products
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="holidays">
-                <span class="oi oi-cloud-upload" aria-hidden="true"></span> holidays
+                <span class="oi oi-minus" aria-hidden="true"></span> Autoryzacja
             </NavLink>
         </li>
     </ul>

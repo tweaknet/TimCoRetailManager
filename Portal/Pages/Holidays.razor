@@ -3,14 +3,31 @@
 @inject IHolidaysEndpoint HolidaysEndpoint
 @inject IConfiguration config
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navManager
 @attribute [Authorize(Roles = "Cashier")]
 
-<h3>Holidays</h3>
+<style>
+    .btn {
+        background-color: blue;
+        border: 1px solid red;
+        border-radius: 10px;
+    }
+
+    .xxx {
+        margin: 20px;
+    }
+</style>
+
+<h3>Urlopy</h3>
+<div class="xxx" margin="20px">
+    <button class="btn" @onclick="(() => OpenDetails())">Złóż wniosek o urlop.</button>
+    <button class="btn">Pokaż ostatnie urlopy.</button>
+</div>
 
 @if (holidays is null)
 {
     <div class="row">
-        <p>no holidays have been loaded.</p>
+        <p>Nie załadowano twoich urlopów. Proszę czekać.</p>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -73,6 +90,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <p class="h5 mb-3">@holiday.IdHolidayType - $@holiday.IdUser  - $@holiday.Id</p>
+                                <p>@userName</p>
                             </div>
                         </div>
                     </div>
@@ -83,12 +101,17 @@ else
 }
 
 @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+    private bool isAuthenticated = false;
+    private string userName;
     private List<HolidayModel> holidays;
     private string api;
     private const string HolidayListName = "holidayList";
     private const string HolidayCacheDate = "holidayCacheDate";
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthState;
         api = config.GetValue<string>("api");
         holidays = await localStorage.GetItemAsync<List<HolidayModel>>(HolidayListName);
         DateTime? cacheDate = await localStorage.GetItemAsync<DateTime?>(HolidayCacheDate);
@@ -97,7 +120,7 @@ else
         {
             totalMinutes = DateTime.UtcNow.Subtract((DateTime)cacheDate).TotalMinutes;
         }
-        if (holidays is null || cacheDate is null || totalMinutes > 10)
+        if (holidays is null || cacheDate is null || totalMinutes > 1)
         {
             try
             {
@@ -110,5 +133,10 @@ else
                 Console.WriteLine(ex.Message);
             }
         }
+        userName = authState.User.FindFirst(ClaimTypes.NameIdentifier .Name).Value;
+    }
+    private void OpenDetails()
+    {
+        navManager.NavigateTo("/verifyauth");
     }
 }

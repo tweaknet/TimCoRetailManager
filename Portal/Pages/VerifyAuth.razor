@@ -1,4 +1,5 @@
 ﻿@page "/verifyauth"
+@using Microsoft.AspNetCore.Components.Forms
 @inject IProductEndpoint Produtcs
 
 <h3>VerifyAuth</h3>
@@ -15,6 +16,23 @@ else
 {
     <h4>the user is not authencitated</h4>
 }
+<div>
+    <p>
+        <label>
+            <code>yyyy-MM-dd</code> format:
+            <input type="date" @bind="startDate" @bind:format="yyyy-MM-dd" />
+        </label>
+    </p>
+    <p>
+        <label>
+            godzina:
+            <input type="time" @bind="startDate" />
+        </label>
+    </p>
+    <p>
+        <code>startDate</code>: @startDate
+    </p>
+</div>
 
 @code {
     [CascadingParameter]
@@ -24,6 +42,7 @@ else
     private bool isAdminUser = false;
     private bool isCashier = false;
     private bool isManager = false;
+    private DateTime startDate = new(2022, 1, 1);
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthState;
@@ -38,7 +57,7 @@ else
                     Console.WriteLine(p.Description);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
