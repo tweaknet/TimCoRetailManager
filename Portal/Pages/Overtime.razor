@@ -1,4 +1,4 @@
-﻿@page "/holidays"
+﻿@page "/overtime"
 @using Microsoft.Extensions.Configuration
 @inject IHolidaysEndpoint HolidaysEndpoint
 @inject IConfiguration config
@@ -12,17 +12,17 @@
     }
 </style>
 
-<h3>Urlopy</h3>
+<h3>Nadgodziny</h3>
 <div class="xxx">
-    <button class="btn btn-success" @onclick="(() => OpenDetails())">Złóż wniosek o urlop.</button>
-    <button class="btn btn-success">Pokaż ostatnie urlopy.</button>
-    <button class="btn btn-primary">Pokaż urlopy do zatwierdzenia.</button>
+    <button class="btn btn-success" @onclick="(() => OpenDetails())">Dodaj nadgodziny.</button>
+    <button class="btn btn-success">Pokaż ostatnie nadgodziny.</button>
+    <button class="btn btn-primary">Pokaż nadgodziny do zatwierdzenia.</button>
 </div>
 
 @if (holidays is null)
 {
     <div class="row">
-        <p>Nie załadowano jeszcze twoich urlopów. Proszę czekać.</p>
+        <p>Nie załadowano jeszcze twoich nadgodzin. Proszę czekać.</p>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -56,32 +56,7 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>idholidaytype</th>
-                <th>data</th>
-                <th>idUser</th>
-                <th>holidaytypeid</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (HolidayModel holiday1 in holidays)
-            {
-                <tr>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.Id</div></td>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.IdHolidayType</div></td>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.Data</div></td>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.IdUser</div></td>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.HolidayTypeId</div></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <p>@userName</p>
-
-@*    <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             @foreach (HolidayModel holiday in holidays)
             {
@@ -89,7 +64,7 @@ else
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <a href="/verifyauth">
+                                <a href="">
                                     @if (holiday.HolidayTypeId >= 0)
                                     {
                                         <img src="https://dummyimage.com/200x100/000/fff&text=commingSoon" alt="placeholder image" />
@@ -110,13 +85,14 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <p class="h5 mb-3">@holiday.IdHolidayType - $@holiday.IdUser  - $@holiday.Id</p>
+                                <p>@userName</p>
                             </div>
                         </div>
                     </div>
                 </div>
             }
         </div>
-    </div>*@
+    </div>
 }
 
 @code {

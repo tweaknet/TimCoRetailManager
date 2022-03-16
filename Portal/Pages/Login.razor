@@ -1,4 +1,5 @@
-﻿@inject IAuthenticationService AuthService
+﻿@page "/login"
+@inject IAuthenticationService AuthService
 @inject NavigationManager NavManager
 
 @*<h3>Log In</h3>*@
@@ -12,19 +13,19 @@
 <EditForm Model="model" OnValidSubmit="ExecuteLogin" class="">
     <div class="form-row">
         <div class="col-auto">
-            <label for="email" class="sr-only">Email</label>
-            <InputText id="email" class="form-control" @bind-Value="model.Email" placeholder="Email Address" />
+            <label for="email" class="sr-only">Login</label>
+            <InputText id="email" class="form-control" @bind-Value="model.Email" placeholder="Login: nr pracownika/email" />
         </div>
         <div class="col-auto">
-            <label for="password" class="sr-only">Password</label>
-            <InputText type="password" id="password" class="form-control" @bind-Value="model.Password" placeholder="Password" />
+            <label for="password" class="sr-only">Hasło</label>
+            <InputText type="password" id="password" class="form-control" @bind-Value="model.Password" placeholder="Hasło" />
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-success">Log In</button>
+            <button type="submit" class="btn btn-success">Zaloguj</button>
         </div>
-        <div class="col-auto">
+@*        <div class="col-auto">
             <button type="button" class="btn btn-primary" @onclick="RegisterUser">Reister</button>
-        </div>
+        </div>*@
     </div>
     @*    <DataAnnotationsValidator />
         <ValidationSummary />*@
@@ -76,7 +77,7 @@
         }
         else
         {
-            authenticationErrorText = "there was an error to log in.";
+            authenticationErrorText = "Nie można się zalogować!";
             showAuthenticatioError = true;
         }
     }

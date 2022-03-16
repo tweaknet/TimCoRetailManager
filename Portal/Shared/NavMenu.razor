@@ -1,5 +1,5 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Portal</a>
+    <a class="navbar-brand" href="">Portal pracowniczy</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,19 +16,24 @@
             <Authorized>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="holidays">
-                        <span class="oi oi-cloud-upload" aria-hidden="true"></span> Urlopy
+                        <span class="oi oi-list" aria-hidden="true"></span> Urlopy
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="overtime">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Nadgodziny
                     </NavLink>
                 </li>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="logout">
-                        <span class="oi oi-account-logout" aria-hidden="true"></span> logout
+                        <span class="oi oi-account-logout" aria-hidden="true"></span> Wyloguj mnie
                     </NavLink>
                 </li>
             </Authorized>
             <NotAuthorized>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="login">
-                        <span class="oi oi-account-login" aria-hidden="true"></span> login
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Zaloguj się
                     </NavLink>
                 </li>
             </NotAuthorized>

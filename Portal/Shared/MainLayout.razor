@@ -9,16 +9,15 @@
         <div class="top-row px-4">
             <AuthorizeView>
                 <Authorized>
-                    Welcom @context.User.FindFirst(ClaimTypes.Name).Value
+                    Zalogowany jako: @context.User.FindFirst(ClaimTypes.Name).Value
                     <NavLink class="nav-link" href="logout">
-                        <span class="oi oi-account-logout"></span>Log out
+                        <span class="oi oi-account-logout"></span>Wyloguj mnie
                     </NavLink>
                 </Authorized>
                 <NotAuthorized>
                     <Login />
                 </NotAuthorized>
             </AuthorizeView>
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
         </div>
 
         <div class="content px-4">
