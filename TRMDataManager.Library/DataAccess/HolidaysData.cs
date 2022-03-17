@@ -24,5 +24,10 @@ namespace TRMDataManager.Library.DataAccess
         {
             _sql.SaveData("spHolidays_Insert", item, "EFData");
         }
+        public List<HolidaysModel> GetHolidayById(int Id)
+        {
+            var output = _sql.LoadData<HolidaysModel, dynamic>("dbo.spHolidaysLookup", new { Id }, "EFData");
+            return output;
+        }
     }
 }

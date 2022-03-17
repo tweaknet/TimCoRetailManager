@@ -56,6 +56,8 @@
 }
 else
 {
+    <Virtualize Items="@holidays" Context="h" OverscanCount="10">
+
     <table class="table">
         <thead>
             <tr>
@@ -70,7 +72,7 @@ else
             @foreach (HolidayModel holiday1 in holidays)
             {
                 <tr>
-                    <td><div @onclick="(() => OpenDetails())">@holiday1.Id</div></td>
+                    <td><div @onclick="(() => OpenDetails(holiday1.Id))">@holiday1.Id</div></td>
                     <td><div @onclick="(() => OpenDetails())">@holiday1.IdHolidayType</div></td>
                     <td><div @onclick="(() => OpenDetails())">@holiday1.Data</div></td>
                     <td><div @onclick="(() => OpenDetails())">@holiday1.IdUser</div></td>
@@ -79,6 +81,7 @@ else
             }
         </tbody>
     </table>
+    </Virtualize>
     <p>@userName</p>
 
 @*    <div class="container-fluid">
@@ -154,7 +157,11 @@ else
         }
         userName = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value;
     }
-    private void OpenDetails()
+    private void OpenDetails(int Id)
+    {
+        navManager.NavigateTo("/Details/{Id}");
+    }
+        private void OpenDetails()
     {
         navManager.NavigateTo("/verifyauth");
     }

@@ -1,0 +1,24 @@
+﻿@page "/Details/{Id}"
+@using Microsoft.Extensions.Configuration
+@inject IHolidaysEndpoint HolidaysEndpoint
+@inject IConfiguration config
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navManager
+
+<h3>Details</h3>
+
+<div>
+    
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private List<HolidayModel> holiday;
+
+    protected async override Task OnInitializedAsync()
+    {
+        holiday = await HolidaysEndpoint.GetHolidayById(Id);
+        //loggedInUser = await authProvider.GetUserFromAuth(userData);
+    }
+}

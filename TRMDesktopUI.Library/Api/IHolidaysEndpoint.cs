@@ -8,5 +8,6 @@ namespace TRMDesktopUI.Library.Api
     {
         IAPIHelper _apiHelper { get; set; }
         Task<List<HolidayModel>> GetAll();
+        Task<List<HolidayModel>> GetHolidayById(int Id);
     }
 }

@@ -8,7 +8,7 @@ using TRMDataManager.Library.Models;
 namespace TRMApiv2.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class HolidaysController : ControllerBase
     {
@@ -18,11 +18,17 @@ namespace TRMApiv2.Controllers
         {
             _holidaysData = holidaysData;
         }
-        [Authorize(Roles = "Manager,Admin")]
+        //[Authorize(Roles = "Manager,Admin")]
         [HttpGet]
         public List<HolidaysModel> Get()
         {
             return _holidaysData.GetHolidays();
+        }
+        [HttpGet]
+        [Route("Details/{Id}")]
+        public List<HolidaysModel> GetById(int Id)
+        {
+            return _holidaysData.GetHolidayById(Id);
         }
     }
 }

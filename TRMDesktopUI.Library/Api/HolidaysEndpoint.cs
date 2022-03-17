@@ -27,5 +27,17 @@ namespace TRMDesktopUI.Library.Api
                 throw new Exception(response.ReasonPhrase);
             }
         }
+        public async Task<List<HolidayModel>> GetHolidayById(int Id)
+        {
+            using HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Holidays/Details/{Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<List<HolidayModel>>();
+            }
+            else
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+        }
     }
 }
